@@ -12,7 +12,7 @@ public class ListRand {
     public ListNode tail;
     public int count;
 
-    public void serialize(ByteBuffer buffer) throws IOException {
+    public void serialize(ByteBuffer out) throws IOException {
         if (count != 0) {
 
             List<ListNode> arr = new ArrayList<>(count);
@@ -22,7 +22,7 @@ public class ListRand {
                 curr = curr.next;
             } while (curr != null);
 
-            buffer.put(toByteArray(count));
+            out.put(toByteArray(count));
 
             for (ListNode node : arr) {
                 String data = node.data;
@@ -31,9 +31,9 @@ public class ListRand {
                 byte[] byteLength = toByteArray(bytesData.length);
                 byte[] byteIndexOfRand = toByteArray(indexOfRand);
 
-                buffer.put(byteLength);
-                buffer.put(bytesData);
-                buffer.put(byteIndexOfRand);
+                out.put(byteLength);
+                out.put(bytesData);
+                out.put(byteIndexOfRand);
             }
         }
     }
