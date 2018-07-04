@@ -90,13 +90,19 @@ public class ListRand {
 
     private void linkLast(ListNode e) {
 
-        if (head == null && tail == null) {
+        if (head == null || tail == null) {
             head = e;
             tail = e;
+            head.next = tail;
+            head.prev = tail;
+            tail.next = head;
+            tail.prev = head;
         } else {
             tail.next = e;
             e.prev = tail;
             tail = e;
+            tail.next = head;
+            head.prev = tail;
         }
         count++;
     }
