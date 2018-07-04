@@ -65,14 +65,14 @@ public class ListRand {
 
             byte[] byteIndexOfRand = new byte[4];
             System.arraycopy(array, cursorOfCurrentPos, byteIndexOfRand, 0, 4);
-            int index = fromByteArray(byteIndexOfRand); // index of the random node
+            int indexOfRand = fromByteArray(byteIndexOfRand); // index of the random node
 
             cursorOfCurrentPos = cursorOfCurrentPos + 4;
 
             ListNode listNode = new ListNode();
             listNode.data = data;
-            if (index >= 0)
-                listNode.rand = nodeList.get(index);
+            if (indexOfRand >= 0)
+                listNode.rand = nodeList.get(indexOfRand);
 
             nodeList.add(listNode);
 
