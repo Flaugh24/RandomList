@@ -107,11 +107,11 @@ public class ListRand {
         count++;
     }
 
-    byte[] toByteArray(int value) {
+    private byte[] toByteArray(int value) {
         return ByteBuffer.allocate(4).putInt(value).array();
     }
 
-    int fromByteArray(byte[] bytes) {
+    private int fromByteArray(byte[] bytes) {
         return ByteBuffer.wrap(bytes).getInt();
     }
 }
