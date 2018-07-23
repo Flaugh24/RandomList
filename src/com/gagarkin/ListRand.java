@@ -13,9 +13,10 @@ public class ListRand {
     public int count;
 
     public void serialize(ByteBuffer out) throws IOException {
-        if (count != 0) {
 
-            out.put(toByteArray(count));
+        out.put(toByteArray(count));
+
+        if (count != 0) {
 
             List<ListNode> temp = new ArrayList<>(count);
 
