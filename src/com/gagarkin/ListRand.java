@@ -3,9 +3,7 @@ package com.gagarkin;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class ListRand {
@@ -51,7 +49,7 @@ public class ListRand {
         System.arraycopy(array, 0, byteCount, 0, 4);
         Integer count = fromByteArray(byteCount); // count nodes in the buffer
 
-        Map<Integer, ListNode> temp = new HashMap(count);
+        List<ListNode> temp = new ArrayList<>(count);
         for (int i = 0; i < count; i++) {
 
             byte[] byteLength = new byte[4];
@@ -77,7 +75,7 @@ public class ListRand {
             if (indexOfRand >= 0)
                 listNode.rand = temp.get(indexOfRand);
 
-            temp.put(i, listNode);
+            temp.add(listNode);
 
             add(listNode);
         }
