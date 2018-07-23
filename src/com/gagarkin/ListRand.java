@@ -17,18 +17,15 @@ public class ListRand {
     public void serialize(ByteBuffer out) throws IOException {
         if (count != 0) {
 
-            List<ListNode> temp = new ArrayList<>(count);
-            ListNode curr = head;
-            for (int i = 0; i < count; i++) {
-                temp.add(curr);
-                curr = curr.next;
-            }
-
             out.put(toByteArray(count));
 
-            for (ListNode node : temp) {
-                String data = node.data;
-                Integer indexOfRand = temp.indexOf(node.rand);
+            List<ListNode> temp = new ArrayList<>(count);
+
+            ListNode curr = head;
+            for (int i = 0; i < count; i++) {
+
+                String data = curr.data;
+                Integer indexOfRand = temp.indexOf(curr.rand);
                 byte[] bytesData = data.getBytes();
                 byte[] byteLength = toByteArray(bytesData.length);
                 byte[] byteIndexOfRand = toByteArray(indexOfRand);
@@ -36,6 +33,10 @@ public class ListRand {
                 out.put(byteLength);
                 out.put(bytesData);
                 out.put(byteIndexOfRand);
+
+
+                temp.add(curr);
+                curr = curr.next;
             }
         }
     }
@@ -113,5 +114,19 @@ public class ListRand {
 
     private int fromByteArray(byte[] bytes) {
         return ByteBuffer.wrap(bytes).getInt();
+    }
+
+    public String toString() {
+
+        StringBuilder builder = new StringBuilder();
+        ListNode curr = head;
+
+        for (int i = 0; i < count; i++) {
+
+            builder.append("'").append(i).append("': data = ").append(curr.data).append("  random = ").append(curr.rand != null ? curr.rand.data : "NULL").append("\r\n");
+
+            curr = curr.next;
+        }
+        return builder.toString();
     }
 }

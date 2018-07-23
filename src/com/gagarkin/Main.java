@@ -39,5 +39,8 @@ public class Main {
 
         ListRand finalList = new ListRand();
         finalList.deserialize(buffer);
+
+        System.out.println(initialList.toString());
+        System.out.println(finalList.toString());
     }
 }
