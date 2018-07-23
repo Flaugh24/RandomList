@@ -32,7 +32,7 @@ public class Main {
         initialList.add(node3);
         initialList.add(node4);
 
-        ByteBuffer buffer = ByteBuffer.allocate(1024);
+        ByteBuffer buffer = ByteBuffer.allocate(128);
 
         initialList.serialize(buffer);
 

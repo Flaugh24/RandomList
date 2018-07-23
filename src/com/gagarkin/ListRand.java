@@ -3,7 +3,9 @@ package com.gagarkin;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class ListRand {
@@ -15,18 +17,18 @@ public class ListRand {
     public void serialize(ByteBuffer out) throws IOException {
         if (count != 0) {
 
-            List<ListNode> arr = new ArrayList<>(count);
+            List<ListNode> temp = new ArrayList<>(count);
             ListNode curr = head;
-            do {
-                arr.add(curr);
+            for (int i = 0; i < count; i++) {
+                temp.add(curr);
                 curr = curr.next;
-            } while (curr != null);
+            }
 
             out.put(toByteArray(count));
 
-            for (ListNode node : arr) {
+            for (ListNode node : temp) {
                 String data = node.data;
-                Integer indexOfRand = arr.indexOf(node.rand);
+                Integer indexOfRand = temp.indexOf(node.rand);
                 byte[] bytesData = data.getBytes();
                 byte[] byteLength = toByteArray(bytesData.length);
                 byte[] byteIndexOfRand = toByteArray(indexOfRand);
@@ -48,8 +50,8 @@ public class ListRand {
         System.arraycopy(array, 0, byteCount, 0, 4);
         Integer count = fromByteArray(byteCount); // count nodes in the buffer
 
-        List<ListNode> nodeList = new ArrayList<>(count);
-        while (count > 0) {
+        Map<Integer, ListNode> temp = new HashMap(count);
+        for (int i = 0; i < count; i++) {
 
             byte[] byteLength = new byte[4];
             System.arraycopy(array, cursorOfCurrentPos, byteLength, 0, 4);
@@ -72,13 +74,11 @@ public class ListRand {
             ListNode listNode = new ListNode();
             listNode.data = data;
             if (indexOfRand >= 0)
-                listNode.rand = nodeList.get(indexOfRand);
+                listNode.rand = temp.get(indexOfRand);
 
-            nodeList.add(listNode);
+            temp.put(i, listNode);
 
             add(listNode);
-
-            count--;
         }
     }
 
