@@ -45,40 +45,43 @@ public class ListRand {
         byte[] array = in.array();
         byte[] byteCount = new byte[4];
 
-        int cursorOfCurrentPos = 4;
-
         System.arraycopy(array, 0, byteCount, 0, 4);
         Integer count = fromByteArray(byteCount); // count nodes in the buffer
 
-        List<ListNode> temp = new ArrayList<>(count);
-        for (int i = 0; i < count; i++) {
+        if (count > 0) {
 
-            byte[] byteLength = new byte[4];
-            System.arraycopy(array, cursorOfCurrentPos, byteLength, 0, 4);
-            int length = fromByteArray(byteLength); // length of the data
+            int cursorOfCurrentPos = 4;
 
-            cursorOfCurrentPos = cursorOfCurrentPos + 4;
+            List<ListNode> temp = new ArrayList<>(count);
+            for (int i = 0; i < count; i++) {
 
-            byte[] byteData = new byte[length];
-            System.arraycopy(array, cursorOfCurrentPos, byteData, 0, length);
-            String data = new String(byteData); // data
+                byte[] byteLength = new byte[4];
+                System.arraycopy(array, cursorOfCurrentPos, byteLength, 0, 4);
+                int length = fromByteArray(byteLength); // length of the data
 
-            cursorOfCurrentPos = cursorOfCurrentPos + length;
+                cursorOfCurrentPos = cursorOfCurrentPos + 4;
 
-            byte[] byteIndexOfRand = new byte[4];
-            System.arraycopy(array, cursorOfCurrentPos, byteIndexOfRand, 0, 4);
-            int indexOfRand = fromByteArray(byteIndexOfRand); // index of the random node
+                byte[] byteData = new byte[length];
+                System.arraycopy(array, cursorOfCurrentPos, byteData, 0, length);
+                String data = new String(byteData); // data
 
-            cursorOfCurrentPos = cursorOfCurrentPos + 4;
+                cursorOfCurrentPos = cursorOfCurrentPos + length;
 
-            ListNode listNode = new ListNode();
-            listNode.data = data;
-            if (indexOfRand >= 0)
-                listNode.rand = temp.get(indexOfRand);
+                byte[] byteIndexOfRand = new byte[4];
+                System.arraycopy(array, cursorOfCurrentPos, byteIndexOfRand, 0, 4);
+                int indexOfRand = fromByteArray(byteIndexOfRand); // index of the random node
 
-            temp.add(listNode);
+                cursorOfCurrentPos = cursorOfCurrentPos + 4;
 
-            add(listNode);
+                ListNode listNode = new ListNode();
+                listNode.data = data;
+                if (indexOfRand >= 0)
+                    listNode.rand = temp.get(indexOfRand);
+
+                temp.add(listNode);
+
+                add(listNode);
+            }
         }
     }
 
