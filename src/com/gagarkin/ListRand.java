@@ -123,6 +123,7 @@ public class ListRand {
         StringBuilder builder = new StringBuilder();
         ListNode curr = head;
 
+        builder.append("count = ").append(count).append("\r\n");
         for (int i = 0; i < count; i++) {
 
             builder.append("'").append(i).append("': data = ").append(curr.data).append("  random = ").append(curr.rand != null ? curr.rand.data : "NULL").append("\r\n");
